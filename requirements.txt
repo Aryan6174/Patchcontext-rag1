@@ -12,4 +12,4 @@ requests
 python-dotenv
 tqdm
 openai
-langchain-openai
+langchain-groq
