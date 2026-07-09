@@ -1,0 +1,6 @@
+.env
+config.pkl
+fastapi_vectorstore/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
