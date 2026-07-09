@@ -1,0 +1,15 @@
+streamlit
+langchain
+langchain-community
+langchain-core
+faiss-cpu
+sentence-transformers
+transformers
+torch
+huggingface-hub
+accelerate
+requests
+python-dotenv
+tqdm
+openai
+langchain-openai
