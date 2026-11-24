@@ -142,10 +142,22 @@ Answer:"""
 
 st.set_page_config(page_title="PatchContext", page_icon="🔍", layout="wide")
 
-if not GROQ_API_KEY:
-    st.error("GROQ_API_KEY not found. Add it to your .env file.")
-    st.stop()
+# Read from Streamlit Cloud Secrets first, fallback to local .env
+GROQ_API_KEY = None
+try:
+    if "GROQ_API_KEY" in st.secrets:
+        GROQ_API_KEY = st.secrets["GROQ_API_KEY"].strip()
+except Exception:
+    pass
 
+if not GROQ_API_KEY:
+    load_dotenv()
+    env_key = os.getenv("GROQ_API_KEY")
+    GROQ_API_KEY = env_key.strip() if env_key else None
+
+if not GROQ_API_KEY:
+    st.error("GROQ_API_KEY not found. Add it to Streamlit Secrets or your local .env file.")
+    st.stop()
 with st.spinner("Loading models and index..."):
     config = load_config()
     vector_store = load_vector_store(config)
