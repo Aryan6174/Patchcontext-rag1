@@ -16,8 +16,18 @@ from utils import (
 )
 
 load_dotenv()
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
+def get_api_key():
+    # Prefer Streamlit Cloud secrets, fall back to .env for local runs
+    try:
+        key = st.secrets.get("GROQ_API_KEY")
+    except Exception:
+        key = None
+    if not key:
+        key = os.getenv("GROQ_API_KEY")
+    return key.strip() if key else None
+
+GROQ_API_KEY = get_api_key()
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
